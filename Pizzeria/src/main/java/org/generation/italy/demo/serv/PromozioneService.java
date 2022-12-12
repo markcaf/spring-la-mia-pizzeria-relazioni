@@ -5,8 +5,11 @@ import java.util.Optional;
 
 import org.generation.italy.demo.pojo.Promozione;
 import org.generation.italy.demo.repo.PromozioneRepo;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class PromozioneService {
@@ -32,5 +35,17 @@ public class PromozioneService {
 	
 	public void deleteById(int id) {
 		promozioneRepo.deleteById(id);
+	}
+	
+	@Transactional
+	public List<Promozione> findAllWithPizza() {
+		List<Promozione> promozioni = promozioneRepo.findAll();
+
+		for (Promozione promozione : promozioni) {
+			Hibernate.initialize(promozione.getPizze());
+		}
+
+		return promozioni;
+
 	}
 }

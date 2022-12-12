@@ -92,7 +92,6 @@ public class Pizza {
 		return "\nID: " + getId()
 				+ "\nNome: " + getNome()
 				+ "\nDescrizione: " + getDescrizione()
-				+ "\nPrezzo: " + getPrezzo()
-				+ "\nPromozione: " + getPromozione() + "\n";
+				+ "\nPrezzo: " + getPrezzo();
 	}
 }

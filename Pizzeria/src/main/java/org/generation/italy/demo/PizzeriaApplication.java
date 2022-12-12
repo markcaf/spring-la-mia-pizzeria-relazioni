@@ -65,11 +65,25 @@ public class PizzeriaApplication implements CommandLineRunner {
 
 
 		// LETTURA
-
-		List<Pizza> pizze = pizzaService.findAll();
-		System.out.println(pizze);
 		
 		List<Drink> drinks = drinkService.findAll();
 		System.out.println(drinks);
+		
+		System.out.println("---------------------------");
+		List<Pizza> pizze = pizzaService.findAll();
+		for (Pizza pizza : pizze) {
+			System.err.println(pizza + "\n\t" + pizza.getPromozione());
+		}
+
+		System.out.println("---------------------------");
+		
+		List<Promozione> promozioni = promozioneService.findAllWithPizza();
+
+		for (Promozione promozione : promozioni) {
+			System.err.println(promozione);
+			for (Pizza pizza : promozione.getPizze()) {
+				System.err.println("\t" + pizza);
+			}
+		}
 	}
 }

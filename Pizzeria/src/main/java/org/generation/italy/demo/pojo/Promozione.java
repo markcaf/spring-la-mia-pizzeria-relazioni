@@ -74,6 +74,13 @@ public class Promozione {
 		this.titolo = titolo;
 	}
 	
+	public List<Pizza> getPizze() {
+		return pizze;
+	}
+	public void setPizze(List<Pizza> pizze) {
+		this.pizze = pizze;
+	}
+	
 	@Override
 	public String toString() {
 		return getTitolo() + " (" + getDataInizio() + " / " + getDataFine() + ")";
