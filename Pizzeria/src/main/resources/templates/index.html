@@ -28,6 +28,7 @@
 				<th>Nome</th>
 				<th>Descrizione</th>
 				<th>Prezzo</th>
+				<th>Promozione</th>
 				<th>Azioni</th>
 			</tr>
 			<tr th:each="pizza : ${pizze}" th:object="${pizza}">
@@ -35,6 +36,7 @@
 				<td th:text="*{nome}"></td>
 				<td th:text="*{descrizione}"></td>
 				<td th:text="*{prezzo}"></td>
+				<td th:text="*{promozione}"></td>
 				<td>
 					<a th:href="@{/pizza/{id} (id=*{id})}" class="btn btn-sm btn-success">Visualizza</a>
 					<a th:href="@{/pizza/update/{id}(id=${pizza.id})}" class="btn btn-sm btn-primary">Modifica</a>

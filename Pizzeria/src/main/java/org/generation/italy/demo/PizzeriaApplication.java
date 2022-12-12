@@ -1,11 +1,14 @@
 package org.generation.italy.demo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.generation.italy.demo.pojo.Drink;
 import org.generation.italy.demo.pojo.Pizza;
+import org.generation.italy.demo.pojo.Promozione;
 import org.generation.italy.demo.serv.DrinkService;
 import org.generation.italy.demo.serv.PizzaService;
+import org.generation.italy.demo.serv.PromozioneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +21,8 @@ public class PizzeriaApplication implements CommandLineRunner {
 	private PizzaService pizzaService;
 	@Autowired
 	private DrinkService drinkService;
+	@Autowired
+	private PromozioneService promozioneService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(PizzeriaApplication.class, args);
@@ -25,13 +30,21 @@ public class PizzeriaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+		//INSERIMENTO PROMOZIONI
+		Promozione promo1 = new Promozione(LocalDate.parse("2022-12-01"), LocalDate.parse("2022-12-31"), "Sconto Dicembre");
+		Promozione promo2 = new Promozione(LocalDate.parse("2023-01-01"), LocalDate.parse("2023-01-31"), "Promo Gennaio");
 
+		promozioneService.save(promo1);
+		promozioneService.save(promo2);
+		
+		
 		// INSERIMENTO PIZZE
 
-		Pizza p1 = new Pizza("Margherita", "Mozzarella, olio e pomodoro", 4);
-		Pizza p2 = new Pizza("Marinara", "Pomodoro, aglio, origano", 3);
-		Pizza p3 = new Pizza("Diavola", "Mozzarella, pomodoro e salame piccante", 5);
-		Pizza p4 = new Pizza("Pizza fritta", "Ripieno fritto con mozzarella e pomodoro", 7);
+		Pizza p1 = new Pizza("Margherita", "Mozzarella, olio e pomodoro", 4, promo1);
+		Pizza p2 = new Pizza("Marinara", "Pomodoro, aglio, origano", 3, promo1);
+		Pizza p3 = new Pizza("Diavola", "Mozzarella, pomodoro e salame piccante", 5, promo2);
+		Pizza p4 = new Pizza("Pizza fritta", "Ripieno fritto con mozzarella e pomodoro", 7, null);
 
 		pizzaService.save(p1);
 		pizzaService.save(p2);
@@ -53,8 +66,8 @@ public class PizzeriaApplication implements CommandLineRunner {
 
 		// LETTURA
 
-		List<Pizza> pizzas = pizzaService.findAll();
-		System.out.println(pizzas);
+		List<Pizza> pizze = pizzaService.findAll();
+		System.out.println(pizze);
 		
 		List<Drink> drinks = drinkService.findAll();
 		System.out.println(drinks);

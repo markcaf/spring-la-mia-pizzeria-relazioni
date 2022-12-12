@@ -1,12 +1,14 @@
 package org.generation.italy.demo.pojo;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
@@ -29,6 +31,9 @@ public class Promozione {
 	@Column(unique = true)
 	@NotNull(message = "Il titolo deve contenere qualcosa")
 	private String titolo;
+	
+	@OneToMany(mappedBy = "promozione")
+	private List<Pizza> pizze;
 	
 	public Promozione() { }
 	public Promozione(LocalDate dataInizio, LocalDate dataFine, String titolo) {
@@ -71,7 +76,7 @@ public class Promozione {
 	
 	@Override
 	public String toString() {
-		return "(" + getId() + ")" + " " + getTitolo() + " - " + getDataInizio() + " " + getDataFine();
+		return getTitolo() + " (" + getDataInizio() + " / " + getDataFine() + ")";
 	}
 	
 	
