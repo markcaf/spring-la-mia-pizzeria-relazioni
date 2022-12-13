@@ -28,7 +28,6 @@
 				<th>Data Inizio</th>
 				<th>Data Fine</th>
 				<th>Attiva sulle pizze:</th>
-				<th>Azioni</th>
 			</tr>
 			<tr th:each="promozione : ${promozioni}" th:object="${promozione}">
 				<td th:text="*{id}"></td>
@@ -37,10 +36,6 @@
 				<td th:text="*{dataFine}"></td>
 				<td>
 					<span th:each="pizza : ${promozione.pizze}">[[${pizza.nome}]] </span>
-				</td>
-				<td>
-					<a th:href="@{/promozioni/promozione/update/{id} (id=*{id})}" class="btn btn-sm btn-primary">Modifica</a>
-					<a th:href="@{/promozioni/promozione/delete/{id} (id=*{id})}" class="btn btn-sm btn-danger">Rimuovi</a>
 				</td>
 			</tr>
 		</table>
