@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.generation.italy.demo.pojo.Pizza;
+import org.generation.italy.demo.pojo.Promozione;
 import org.generation.italy.demo.serv.PizzaService;
+import org.generation.italy.demo.serv.PromozioneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,9 @@ public class PizzaController {
 
 	@Autowired
 	private PizzaService pizzaService;
+	
+	@Autowired
+	private PromozioneService promozioneService;
 	
 	@GetMapping
 	public String getIndex(Model model) {
@@ -51,8 +56,10 @@ public class PizzaController {
 	
 	@GetMapping("/pizza/create")
 	public String createPizza(Model model) {
+		List<Promozione> promozioni = promozioneService.findAll();
 		Pizza pizza = new Pizza();
 		model.addAttribute("pizza", pizza);
+		model.addAttribute("promozioni", promozioni);
 		return "pizza-create";
 	}
 	@PostMapping("/pizza/create")
