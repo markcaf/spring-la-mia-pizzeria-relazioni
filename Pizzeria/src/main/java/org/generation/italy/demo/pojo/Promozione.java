@@ -3,6 +3,7 @@ package org.generation.italy.demo.pojo;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class Promozione {
 	@NotNull(message = "Il titolo deve contenere qualcosa")
 	private String titolo;
 	
-	@OneToMany(mappedBy = "promozione")
+	@OneToMany(mappedBy = "promozione", cascade = CascadeType.REMOVE)
 	private List<Pizza> pizze;
 	
 	public Promozione() { }

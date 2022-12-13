@@ -25,20 +25,16 @@ public class PromozioneService {
 		return promozioneRepo.findAll();
 	}
 	
-	public Optional<Promozione> findPromozioneById(int id){
+	public Optional<Promozione> getPromozioneById(int id){
 		return promozioneRepo.findById(id);
 	}
 	
-	public void delete (Promozione promozione) {
-		promozioneRepo.delete(promozione);
-	}
-	
-	public void deleteById(int id) {
+	public void deletePromozioneById(int id) {
 		promozioneRepo.deleteById(id);
 	}
 	
 	@Transactional
-	public List<Promozione> findAllWithPizza() {
+	public List<Promozione> findAllWPizza() {
 		List<Promozione> promozioni = promozioneRepo.findAll();
 
 		for (Promozione promozione : promozioni) {

@@ -19,8 +19,10 @@ public class PizzeriaApplication implements CommandLineRunner {
 
 	@Autowired
 	private PizzaService pizzaService;
+	
 	@Autowired
 	private DrinkService drinkService;
+	
 	@Autowired
 	private PromozioneService promozioneService;
 	
@@ -62,12 +64,16 @@ public class PizzeriaApplication implements CommandLineRunner {
 		drinkService.save(d2);
 		drinkService.save(d3);
 		drinkService.save(d4);
-
+		
+		
+		// DELETE
+		promozioneService.deletePromozioneById(1);
+		//pizzaService.deleteById(1);
 
 		// LETTURA
 		
-		List<Drink> drinks = drinkService.findAll();
-		System.out.println(drinks);
+		//List<Drink> drinks = drinkService.findAll();
+		//System.out.println(drinks);
 		
 		System.out.println("---------------------------");
 		List<Pizza> pizze = pizzaService.findAll();
@@ -77,10 +83,10 @@ public class PizzeriaApplication implements CommandLineRunner {
 
 		System.out.println("---------------------------");
 		
-		List<Promozione> promozioni = promozioneService.findAllWithPizza();
+		List<Promozione> promozioni = promozioneService.findAllWPizza();
 
 		for (Promozione promozione : promozioni) {
-			System.err.println(promozione);
+			System.err.println("\n" + promozione);
 			for (Pizza pizza : promozione.getPizze()) {
 				System.err.println("\t" + pizza);
 			}
