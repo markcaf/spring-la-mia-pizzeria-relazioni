@@ -67,7 +67,7 @@ public class PizzeriaApplication implements CommandLineRunner {
 		
 		
 		// DELETE
-		promozioneService.deletePromozioneById(1);
+		//promozioneService.deletePromozioneById(1);
 		//pizzaService.deleteById(1);
 
 		// LETTURA
