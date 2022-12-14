@@ -27,7 +27,7 @@ public class PromozioneController {
 	
 	@GetMapping
 	public String index(Model model) {
-		List<Promozione> promozioni = promozioneService.findAll();
+		List<Promozione> promozioni = promozioneService.findAllWPizza();
 		model.addAttribute("promozioni", promozioni);
 		return "promozioni";
 	}
