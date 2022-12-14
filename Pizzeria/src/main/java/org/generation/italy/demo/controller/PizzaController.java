@@ -3,8 +3,10 @@ package org.generation.italy.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.generation.italy.demo.pojo.Ingrediente;
 import org.generation.italy.demo.pojo.Pizza;
 import org.generation.italy.demo.pojo.Promozione;
+import org.generation.italy.demo.serv.IngredienteService;
 import org.generation.italy.demo.serv.PizzaService;
 import org.generation.italy.demo.serv.PromozioneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class PizzaController {
 	
 	@Autowired
 	private PromozioneService promozioneService;
+	
+	@Autowired
+	private IngredienteService ingredienteService;
 	
 	@GetMapping
 	public String getIndex(Model model) {
@@ -57,9 +62,11 @@ public class PizzaController {
 	@GetMapping("/pizza/create")
 	public String createPizza(Model model) {
 		List<Promozione> promozioni = promozioneService.findAll();
+		List<Ingrediente> ingredienti = ingredienteService.findAll();
 		Pizza pizza = new Pizza();
 		model.addAttribute("pizza", pizza);
 		model.addAttribute("promozioni", promozioni);
+		model.addAttribute("ingredienti", ingredienti);
 		return "pizza-create";
 	}
 	@PostMapping("/pizza/create")

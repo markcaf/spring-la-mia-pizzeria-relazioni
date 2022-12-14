@@ -47,6 +47,12 @@
 							[[*{titolo}]]
 						</option>
 					</select>
+					<br>
+					<label class="form-label">Ingredienti</label><br>
+					<div th:each="ingrediente : ${ingredienti}" th:object="${ingrediente}" class="mb-2">
+                        <input type="checkbox" name="ingredienti" th:value="*{id}" th:field="${pizza.ingredienti}">
+                        <label>[[*{nome}]]</label>
+                    </div>
 					<button type="submit" class="btn btn-primary mt-2 w-100">Crea</button>
 				</form>
 			</div>
