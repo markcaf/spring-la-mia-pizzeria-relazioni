@@ -1,5 +1,7 @@
 package org.generation.italy.demo.pojo;
 
+import java.util.List;
+
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
@@ -40,12 +43,19 @@ public class Pizza {
 	@JoinColumn(name="promozione_id", nullable=true)
 	private Promozione promozione;
 	
+	@ManyToMany
+	private List<Ingrediente> ingredienti;
+	
 	public Pizza() { }
 	public Pizza(String nome, String descrizione, int prezzo, Promozione promozione) {
 		setNome(nome);
 		setDescrizione(descrizione);
 		setPrezzo(prezzo);
 		setPromozione(promozione);
+	}
+	public Pizza(String nome, String descrizione, int prezzo, Promozione promozione, List<Ingrediente> ingredienti) {
+		this(nome, descrizione, prezzo, promozione);
+		setIngredienti(ingredienti);
 	}
 
 	public int getId() {
@@ -85,6 +95,13 @@ public class Pizza {
 	}
 	public void setPromozione(Promozione promozione) {
 		this.promozione = promozione;
+	}
+	
+	public List<Ingrediente> getIngredienti() {
+		return ingredienti;
+	}
+	public void setIngredienti(List<Ingrediente> ingredienti) {
+		this.ingredienti = ingredienti;
 	}
 	
 	@Override
