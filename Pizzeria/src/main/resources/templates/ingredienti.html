@@ -26,12 +26,17 @@
 				<th>ID</th>
 				<th>Nome</th>
 				<th>Presente sulle pizze:</th>
+				<th>Azioni</th>
 			</tr>
 			<tr th:each="ingrediente : ${ingredienti}" th:object="${ingrediente}">
 				<td th:text="*{id}"></td>
 				<td th:text="*{nome}"></td>
 				<td>
 					<span th:each="pizza : ${ingrediente.pizze}">[[${pizza.nome}]] </span>
+				</td>
+				<td>
+					<a th:href="@{/ingredienti/ingrediente/update/{id}(id=${ingrediente.id})}" class="btn btn-sm btn-primary">Modifica</a>
+					<a th:href="@{/ingredienti/ingrediente/delete/{id}(id=${ingrediente.id})}" class="btn btn-sm btn-danger">Rimuovi</a>
 				</td>
 			</tr>
 		</table>

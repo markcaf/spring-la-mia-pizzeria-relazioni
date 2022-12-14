@@ -104,6 +104,21 @@ public class Pizza {
 		this.ingredienti = ingredienti;
 	}
 	
+	public void addIngredienti(Ingrediente ingrediente) {
+
+		boolean finded = false;
+		for (Ingrediente i : getIngredienti()) 
+			if (i.getId() == ingrediente.getId())
+				finded = true;
+
+		if (!finded) 
+			getIngredienti().add(ingrediente);
+	}
+
+	public void removeIngredienti(Ingrediente ingrediente) {
+		getIngredienti().remove(ingrediente);
+	}
+	
 	@Override
 	public String toString() {
 		return "ID: " + getId()
