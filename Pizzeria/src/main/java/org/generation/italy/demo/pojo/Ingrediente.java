@@ -2,6 +2,7 @@ package org.generation.italy.demo.pojo;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class Ingrediente {
 	@Column(unique = true)
 	private String nome;
 	
-	@ManyToMany(mappedBy = "ingredienti")
+	@ManyToMany(mappedBy = "ingredienti", cascade = CascadeType.REMOVE)
 	private List<Pizza> pizze;
 	
 	public Ingrediente() { }
@@ -34,7 +35,7 @@ public class Ingrediente {
 	}
 	public Ingrediente(String nome, List<Pizza> pizze) {
 		this(nome);
-		
+		setPizze(pizze);
 	}
 	
 	public int getId() {
@@ -58,7 +59,7 @@ public class Ingrediente {
 	
 	@Override
 	public String toString() {
-		return "(" + getId() + ") " + getNome();
+		return getNome();
 	}
 	
 }
