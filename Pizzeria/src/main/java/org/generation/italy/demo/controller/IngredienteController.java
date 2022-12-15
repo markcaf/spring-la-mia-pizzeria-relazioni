@@ -96,5 +96,16 @@ public class IngredienteController {
 		
 		return "redirect:/ingredienti";
 	}
+	
+	@GetMapping("/ingrediente/delete/{id}")
+	public String deleteIngredient(@PathVariable("id") int id) {
+
+		Ingrediente i = ingredienteService.findIngredienteById(id);
+		for (Pizza pizza : i.getPizze())
+			pizza.removeIngredienti(i);
+
+		ingredienteService.deleteById(id);
+		return "redirect:/ingredienti";
+	}
 
 }

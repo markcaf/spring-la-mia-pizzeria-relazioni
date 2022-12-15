@@ -26,7 +26,7 @@ public class Ingrediente {
 	@Column(unique = true)
 	private String nome;
 	
-	@ManyToMany(mappedBy = "ingredienti", cascade = CascadeType.REMOVE)
+	@ManyToMany(mappedBy = "ingredienti")
 	private List<Pizza> pizze;
 	
 	public Ingrediente() { }
