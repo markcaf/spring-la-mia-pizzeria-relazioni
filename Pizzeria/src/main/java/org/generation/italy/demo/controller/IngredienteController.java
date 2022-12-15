@@ -64,39 +64,36 @@ public class IngredienteController {
 	@GetMapping("/ingrediente/update/{id}")
 	public String editIngrediente(@PathVariable("id") int id, Model model) {
 		
-		Optional<Ingrediente> optIngrediente = ingredienteService.findIngredienteById(id);
-		Ingrediente ingrediente = optIngrediente.get();
+		Ingrediente ingrediente = ingredienteService.findIngredienteById(id);
+		model.addAttribute("ingrediente", ingrediente);
 		
 		List<Pizza> pizze = pizzaService.findAll();
-		
-		model.addAttribute("ingrediente", ingrediente);
 		model.addAttribute("pizze", pizze);
+		
 		return "ingrediente-update";
 	}
 	
-	@PostMapping("/ingrediente/update")
-	public String updateIngrediente(@Valid @ModelAttribute("ingrediente") Ingrediente ingrediente, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+	@PostMapping("/ingrediente/update/{id}")
+	public String updateIngrediente(
+			@PathVariable("id") int id,
+			@Valid Ingrediente ingrediente) {
 
-		if(bindingResult.hasErrors()) {
-			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-			return "redirect:/ingrediente/update/" + ingrediente.getId();
+		Ingrediente oldIng = ingredienteService.findIngredienteById(id);
+		
+		// --- -> sync -------------------------------------
+		for (Pizza p : oldIng.getPizze()) {
+			
+			p.getIngredienti().remove(oldIng);
 		}
 		
-		//Optional<Ingrediente> optIngrediente = ingredienteService.findIngredienteById(ingrediente.getId());
-		//Ingrediente ing = optIngrediente.get();
-
-		for (Pizza pizza : ingrediente.getPizze()) {
-			pizza.removeIngredienti(ingrediente);
-		}
-
-		List<Pizza> ingredientePizze = ingrediente.getPizze();
-		for (Pizza p : ingredientePizze)
-			p.getIngredienti().add(ingrediente);
-		for (Pizza p : ingredientePizze) {
+		for (Pizza p : ingrediente.getPizze()) {
+			
 			p.addIngredienti(ingrediente);
 		}
-
+		// -------------------------------------------------
+		
 		ingredienteService.save(ingrediente);
+		
 		return "redirect:/ingredienti";
 	}
 
